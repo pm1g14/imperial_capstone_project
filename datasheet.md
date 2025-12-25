@@ -44,5 +44,5 @@ The dataset is publicly available on https://github.com/pm1g14/imperial_capstone
 
 **Licence:** MIT Licence  
 
-**Maintainer:** The author of the specific github repository.
+**Maintainer:** The author of the specific github repository (panosmav22@gmail.com).
 
