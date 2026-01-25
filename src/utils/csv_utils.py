@@ -1,0 +1,43 @@
+import json
+import pandas as pd
+import os
+import numpy as np
+from typing import Any, Dict, List
+from pathlib import Path
+from typing import Tuple
+class CsvUtils:
+
+    @staticmethod
+    def to_csv(headers: List[str], output_file_name:str, *args):
+        project_root = "/home/pmavrothalassitis/development/capstone_imperial/resources"
+        input_path = f"{project_root}/{output_file_name}/historical_results.csv"
+
+        file_is_empty = os.path.getsize(input_path) == 0
+        write_mode = "w" if file_is_empty else "a"
+
+        if file_is_empty:
+            df = pd.DataFrame(columns=headers, data=np.array([args]))
+            df.to_csv(input_path, index=False, header=True, mode=write_mode)
+        else:
+            df = pd.DataFrame(columns=headers, data=np.array([args]))
+            df.to_csv(input_path, index=False, header=False, mode=write_mode)
+
+
+    @staticmethod
+    def get_inputs_and_outputs(function_number: int) -> Tuple[np.ndarray, np.ndarray]:
+        project_root = Path(__file__).resolve().parent.parent.parent
+        input_path = project_root / "resources" / f"function_{function_number}" / "initial_inputs.npy"
+        output_path = project_root / "resources" / f"function_{function_number}" / "initial_outputs.npy"
+        inputs = np.load(input_path)
+        outputs = np.load(output_path).reshape(-1, 1)
+        return inputs, outputs
+
+    @staticmethod
+    def get_submission_values(function_number: int) -> Tuple[np.ndarray, np.ndarray]:
+        project_root = Path(__file__).resolve().parent.parent.parent
+        path = project_root / "resources" / f"function_{function_number}" / "submissions.csv"
+        df = pd.read_csv(path)
+        outputs = df['y'].to_numpy().reshape(-1, 1)
+        inputs = df.drop(columns=['y']).to_numpy()
+        return inputs, outputs
+
