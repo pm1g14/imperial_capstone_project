@@ -24,18 +24,19 @@ class CsvUtils:
 
 
     @staticmethod
-    def get_inputs_and_outputs(function_number: int) -> Tuple[np.ndarray, np.ndarray]:
+    def get_inputs_and_outputs(function_number: int, input_p: str | None = None, output_p: str | None = None) -> Tuple[np.ndarray, np.ndarray]:
         project_root = Path(__file__).resolve().parent.parent.parent
-        input_path = project_root / "resources" / f"function_{function_number}" / "initial_inputs.npy"
-        output_path = project_root / "resources" / f"function_{function_number}" / "initial_outputs.npy"
+
+        input_path = input_p or project_root / "resources" / f"function_{function_number}" / "initial_inputs.npy"
+        output_path = output_p or project_root / "resources" / f"function_{function_number}" / "initial_outputs.npy"
         inputs = np.load(input_path)
         outputs = np.load(output_path).reshape(-1, 1)
         return inputs, outputs
 
     @staticmethod
-    def get_submission_values(function_number: int) -> Tuple[np.ndarray, np.ndarray]:
+    def get_submission_values(function_number: int, submission_path: str | None = None) -> Tuple[np.ndarray, np.ndarray]:
         project_root = Path(__file__).resolve().parent.parent.parent
-        path = project_root / "resources" / f"function_{function_number}" / "submissions.csv"
+        path = submission_path or project_root / "resources" / f"function_{function_number}" / "submissions.csv"
         df = pd.read_csv(path)
         outputs = df['y'].to_numpy().reshape(-1, 1)
         inputs = df.drop(columns=['y']).to_numpy()

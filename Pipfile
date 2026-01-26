@@ -12,6 +12,7 @@ botorch = "*"
 tensorflow = "*"
 cython = "*"
 optuna = "*"
+typer = "*"
 
 [dev-packages]
 

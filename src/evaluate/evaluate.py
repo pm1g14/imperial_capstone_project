@@ -7,6 +7,7 @@ from domain.domain_models import EvaluationMetricsModel
 import numpy as np
 import pandas as pd
 from utils.csv_utils import CsvUtils
+from scipy.stats import norm
 
 class ModelEvaluator:
 
@@ -80,5 +81,36 @@ class ModelEvaluator:
         return improvement
 
 
-
+    @staticmethod
+    def should_switch_to_trust_region(trial_no: int, total_budget: int, dataframe: pd.DataFrame) -> bool:
+        consecutive_success_trials_threshold = 3
+        ys = dataframe['y'].to_numpy()
+        top_y_so_far = np.max(ys[:-1])
+        last_y = ys[-1]
+        remaining_budget = 1 - trial_no/total_budget
     
+        improvement = (last_y - top_y_so_far) / abs(top_y_so_far)
+        if improvement > 0.15 or remaining_budget <= 0.45:
+            return True
+
+        if len(ys) >= consecutive_success_trials_threshold:
+            recent_trials = ys[-consecutive_success_trials_threshold:]
+
+            if all(recent_trials[i] > recent_trials[i-1] for i in range(1, len(recent_trials))):
+                return True
+        return False
+    
+
+    @staticmethod
+    def normality_score_qq_l2(residuals: np.ndarray) -> float:
+        r = np.asarray(residuals, float).reshape(-1)
+        r = r[np.isfinite(r)]
+        n = r.size
+        if n < 3:
+            return np.inf
+        r_sorted = np.sort(r)
+        # plotting positions
+        p = (np.arange(1, n+1) - 0.5) / n
+        z = norm.ppf(p)
+        # optimal linear fit? If residuals are standardized already, compare directly:
+        return float(np.mean((r_sorted - z)**2))
