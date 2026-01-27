@@ -42,6 +42,8 @@ class HeteroskedasticModel(HeteroskedasticContract):
         dataset: pd.DataFrame, 
         nu_mean: float, 
         nu_noise: float, 
+        trial_no: int,
+        total_budget: int,
         n_restarts: int = 20, 
         device: str = 'cpu', 
         dtype=torch.float64, 
