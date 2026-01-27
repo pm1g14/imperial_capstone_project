@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import numpy as np
-from typing import List
+import pandas as pd
+from typing import List, Tuple
 
 from models.heteroskedastic_model import HeteroskedasticModel
 
@@ -35,7 +36,25 @@ class ModelOutput:
     best_model: HeteroskedasticModel
     best_residuals: np.ndarray
 
-
+@dataclass
+class ModelInputConfig:
+    dataset: pd.DataFrame
+    bounds: List[Tuple[float, float]]
+    nu_mean: float
+    nu_noise: float
+    n_restarts: int
+    num_samples: int
+    warmup_steps: int
+    thinning: int
+    max_tree_depth: int
+    raw_samples: int
+    max_iter: int
+    acquisition_function_str: str
+    beta: float | None
+    warp_inputs: bool
+    warp_outputs: bool
+    lam: float | None
+    
 @dataclass
 class TurboState:
     dim: int

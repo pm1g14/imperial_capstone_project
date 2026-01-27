@@ -9,9 +9,9 @@ import pandas as pd
 class EvaluationServiceFactory:
 
     @staticmethod
-    def get_evaluation_service(trust_region_flg: bool, dims: int, dataframe: pd.DataFrame, total_budget: int, trial_no: int) -> EvaluationServiceContract:
+    def get_evaluation_service(trust_region_flg: bool, dims: int, dataframe: pd.DataFrame, total_budget: int, trial_no: int, function_number: int) -> EvaluationServiceContract:
         if trust_region_flg:
-            return TrustRegionEvaluationService(dims, dataframe, total_budget, trial_no)
+            return TrustRegionEvaluationService(dims, dataframe, total_budget, trial_no, function_number)
         else:
             return GlobalEvaluationService(dims, dataframe, total_budget, trial_no)
         

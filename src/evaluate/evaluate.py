@@ -3,9 +3,12 @@
 import math
 from typing import List
 
+import torch
+
 from domain.domain_models import EvaluationMetricsModel
 import numpy as np
 import pandas as pd
+from models.heteroskedastic_contract import HeteroskedasticContract
 from utils.csv_utils import CsvUtils
 from scipy.stats import norm
 
@@ -114,3 +117,21 @@ class ModelEvaluator:
         z = norm.ppf(p)
         # optimal linear fit? If residuals are standardized already, compare directly:
         return float(np.mean((r_sorted - z)**2))
+
+    @staticmethod
+    def residuals_over_trials(sub_outputs_f1:np.array, submissions_f1: np.array, model: HeteroskedasticContract) -> np.array:
+        residuals = []
+        xis = torch.tensor(submissions_f1, dtype=torch.float)
+        for i in range(xis.shape[0]):
+            xi = xis[i]
+            post_f = model.get_model().posterior(xi.reshape(1, -1), observation_noise=True)
+            mu_i = post_f.mean.item()
+            sigma_i = post_f.variance.sqrt().item()
+            y_actual = sub_outputs_f1[i, 0]
+            residual_for_trial = ModelEvaluator.calculate_standardized_residual( 
+                mu_i, 
+                y_actual,
+                sigma_i
+            )
+            residuals.append(residual_for_trial)
+        return np.array(residuals)
