@@ -79,14 +79,14 @@ EX.
 Below is the summary of the model's performance for the 8 functions:
 | Function | Max | Trial reached | Improvement |
 | :---: | :---: | :---: | :---: |
-| function 1 | 2.5485375317843807e-7 | 11 | |
-| function 2 | 0.6918590194346371 | 13 | |
-| function 3 | -0.0030721660466671236 | 13 | |
-| function 4 | -1.8207573488402562 | 13 | |
-| function 5 | 8662.4825 | 7 | |
-| function 6 | -0.30782271999440225 | 12 | |
-| function 7 | 2.0505603049107615 | 13 | |
-| function 8 | 9.9537948611856 | 11 | |
+| function 1 | 2.5485375317843807e-7 | 11 | 2939296.985% |
+| function 2 | 0.6918590194346371 | 13 | 13.05% |
+| function 3 | -0.0030721660466671236 | 13 | 120.75% |
+| function 4 | -1.8207573488402562 | 13 | 63.15% |
+| function 5 | 8662.4825 | 7 | 285.89% |
+| function 6 | -0.30782271999440225 | 12 | 67.96% |
+| function 7 | 2.0505603049107615 | 13 | 42.82% |
+| function 8 | 9.9537948611856 | 11 | 3.68% |
 
 Most max values were identified close to the end of the capstone project, an indication that exploitation should have started at an earlier iteration. Trust Region BO was applied on round 9 for most of the functions, and there were not enough trials left to get better results. 
 
