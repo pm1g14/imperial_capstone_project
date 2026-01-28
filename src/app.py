@@ -45,7 +45,7 @@ def evaluate(
     trust_region_flg = ModelEvaluator.should_switch_to_trust_region(trial_no, total_budget, dataframe)
 
     evaluation_service = EvaluationServiceFactory.get_evaluation_service(trust_region_flg, dimensions, dataframe, total_budget, trial_no, function_number)
-    best_new_X = evaluation_service.run_suggest(output_dataset_path)
+    best_new_X = evaluation_service.run_suggest(function_number)
     print(f"Next suggested evaluation point is: {best_new_X}")
     sys.exit(0)
 

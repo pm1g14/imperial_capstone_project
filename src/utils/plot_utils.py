@@ -96,7 +96,7 @@ class PerformancePlotUtils:
         # candidate predicted y (posterior mean)
         cand_t = torch.as_tensor(cand_np, dtype=dtype, device=device)
         post_c = model.posterior(cand_t, observation_noise=observation_noise)
-        cand_mu = float(post_c.mean.view(-1).detach().cpu().numpy())
+        cand_mu = post_c.mean.view(-1).detach().cpu().item()
 
         # --- 3D plot ---
         fig = plt.figure(figsize=(10, 7))

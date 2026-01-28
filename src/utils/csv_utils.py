@@ -8,11 +8,12 @@ from typing import Tuple
 class CsvUtils:
 
     @staticmethod
-    def to_csv(headers: List[str], output_file_name:str, *args):
+    def to_csv(headers: List[str], function_identifier: str, *args):
         project_root = "/home/pmavrothalassitis/development/capstone_imperial/resources"
-        input_path = f"{project_root}/{output_file_name}/historical_results.csv"
+        input_path = f"{project_root}/{function_identifier}/historical_results.csv"
 
-        file_is_empty = os.path.getsize(input_path) == 0
+        file_exists = os.path.exists(input_path)
+        file_is_empty = not file_exists or os.path.getsize(input_path) == 0
         write_mode = "w" if file_is_empty else "a"
 
         if file_is_empty:

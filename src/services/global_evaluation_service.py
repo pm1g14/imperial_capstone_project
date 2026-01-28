@@ -7,7 +7,7 @@ from services.evaluation_service_contract import EvaluationServiceContract
 import numpy as np
 import pandas as pd
 
-from src.domain.domain_models import ModelInputConfig
+from domain.domain_models import ModelInputConfig
 
 class GlobalEvaluationService(EvaluationServiceContract):
 
@@ -18,13 +18,13 @@ class GlobalEvaluationService(EvaluationServiceContract):
         self._trial_no = trial_no
         self._model_input_config = config
 
-    def run_suggest(self, csv_output_file_name: str) -> str:
+    def run_suggest(self, function_identifier: int) -> str:
 
         new_point_model, _, _, model, _ = self.init_model_and_get_new_point(
             dataset=self._dataframe,
             bounds=[(0.0, 1.0) for _ in range(self._dimensions)],
             model_config=self._model_input_config,
-            csv_output_file_name=csv_output_file_name,
+            csv_output_file_name=f"function_{function_identifier}",
             display_plots=True
         )
      
