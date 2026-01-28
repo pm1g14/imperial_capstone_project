@@ -11,7 +11,7 @@ where y is the objective function evaluation for the corresponding x values.
 The **output data**, when in the evaluation mode, is the next suggested point to evaluate in the format:
 `x1-x2-x3-...xn` for a n-dimensional problem.
 
-More information on the dataset and its format is provided in the datasheet.md in the [Supporting Documentation](#Supporting Documentation) section
+More information on the dataset and its format is provided in the datasheet.md in the [Supporting Documentation](## Supporting Documentation) section
 
 ## Model
 **Model Type:** Heteroscedastic Gaussian Processes Surrogate Model.
@@ -91,5 +91,5 @@ Below is the summary of the model's performance for the 8 functions:
 Most max values were identified close to the end of the capstone project, an indication that exploitation should have started at an earlier iteration. Trust Region BO was applied on round 9 for most of the functions, and there were not enough trials left to get better results. 
 
 ## Supporting Documentation
-[Datasheet for the Dataset](https://github.com/pm1g14/imperial_capstone_project/edit/main/src/datasheet.md) - Details about the dataset, data collection, format of the data, and intended uses.  
+[Datasheet for the Dataset](https://github.com/pm1g14/imperial_capstone_project/blob/main/src/datasheet.md) - Details about the dataset, data collection, format of the data, and intended uses.  
 [Model Card](https://github.com/pm1g14/imperial_capstone_project/blob/main/src/model_card.md) - Details about the model, the strategy, performance, and limitations.
