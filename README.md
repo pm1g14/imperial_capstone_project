@@ -11,7 +11,7 @@ where y is the objective function evaluation for the corresponding x values.
 The **output data**, when in the evaluation mode, is the next suggested point to evaluate in the format:
 `x1-x2-x3-...xn` for a n-dimensional problem.
 
-More information on the dataset and its format is provided in the datasheet.md in the ([## Supporting Documentation](https://github.com/pm1g14/imperial_capstone_project/blob/main/README.md#supporting-documentation)) section
+More information on the dataset and its format is provided in the datasheet.md in the ([Supporting Documentation](https://github.com/pm1g14/imperial_capstone_project/blob/main/README.md#supporting-documentation)) section
 
 ## Model
 **Model Type:** Heteroscedastic Gaussian Processes Surrogate Model.
