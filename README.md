@@ -5,16 +5,17 @@ The model is used to optimize eight black box functions resembling real-world pr
 
 ## Data
 The **input data** were given as part of the challenge. Depending on the input features, they have the following format:
-x1, x2, ....., y
+`x1, x2, ....., y`
 where y is the objective function evaluation for the corresponding x values.
 
 The **output data**, when in the evaluation mode, is the next suggested point to evaluate in the format:
-x1-x2-x3-...xn for a n-dimensional problem.
+`x1-x2-x3-...xn` for a n-dimensional problem.
 
 More information on the dataset and its format is provided in the datasheet.md in the [Supporting Documentation](#Supporting Documentation) section
 
 ## Model
-**Model Type:** Heteroscedastic Gaussian Processes Surrogate Model
+**Model Type:** Heteroscedastic Gaussian Processes Surrogate Model.
+
 The model is a Gaussian Processes using two surrogate models, one to model the posterior mean and another to model the variable noise. It also uses popular algorithms such as gradient ascent + trust region BO
 for exploitation of promising regions. The model accounts for non-stationarity via input warping + trust region BO. 
 I chose this particular model because I found it more suitable for the capstone project setup (small datasets, few evaluations) compared to other approaches like deep neural networks that are more data-hungry. I also found it easier to experiment with more advanced features of GP BO due to initial limited knowledge of the field of hyperparameter optimization.
@@ -32,6 +33,41 @@ Below is a list of the hyperparameters for my model:
 | acquisition_function_str | The acquisition function to maximize (qLogNEI, UCB or qNegIntegratedPosteriorVariance) |
 | raw_samples | The number of starting points for the gradient ascent algorithm |
 | num_restarts | The number of restarts when running the gradient ascent algorithm |
+
+## How to Run
+Clone the git repo and run:
+`pipenv install`
+to install dependencies.
+
+There are 2 modes that can run, the "evaluate" mode that suggests the next evaluation point and the "update" mode that's applicable for Trust Region BO, to update the search area bounds.
+For the "evaluate" mode, run:
+`python capstone_imperial/src/app.py evaluate`
+
+Input parameters for this mode are:
+| Name | Description |
+| :---: | :---: |
+| function-number | A unique identifier for the function to evaluate. |
+| dimensions | The number of input parameters. |
+| total-budget | The total number of trials. |
+| trial-no | The trial number now. |
+| input-dataset-path | The path to the input dataset. Must be in a .npy file format. |
+| output-dataset-path | The existing evaluations file, if any. Must be an .npy file. |
+| submission-path | The path to the trial evaluations file. |
+
+EX.
+`python capstone_imperial/src/app.py evaluate 1 2 13 --trial-no 11`
+
+For the "update" mode, run:
+`python capstone_imperial/src/app.py update`
+
+Input parameters for this mode are:
+| Name | Description |
+| :---: | :---: |
+| y-new | The latest trial evaluation. |
+| function-number | A unique identifier for the function to update. Must match the identifier used in the evaluate mode. |
+| dimensions | The number of input parameters. |
+EX.
+`python capstone_imperial/src/app.py update -1.2481615507832458e-21 1 2`
 
 ## Results
 Below is the summary of the model's performance for the 8 functions:
