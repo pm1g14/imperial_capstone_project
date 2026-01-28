@@ -38,6 +38,12 @@ Rounds 1-3 focused on exploration using UCB with rounds 4-6 turning towards NEI 
 
 **Limitations:** The model can handle up to 11 dimensions. The current approach, does not scale well for higher input dimensions (> 11) or input values that are not normalised in the [0, 1] range. Acquisition optimization can fail under numerical instability. This is true, especially when trying to maximize the acquisition over smaller areas. The model is often unstable and sensitive to kernel hyperparameter bounds and trust-region radius changes. These need to be carefully tuned and monitored to ensure a relatively stable outcome. The model also exhibits some bias because of gaps in the underlying data and poor sampling in earlier rounds of the competition. 
 
+**Areas of Improvement:** Currently, there is a basic implementation that requires the user to input the starting datapoints, if any, as well as the existing evaluations of the objective function. The model requires these to be in .npy format. An improvement will be to allow more flexibility and support multiple file types.
+
+The goal is to create a command line tool that will interact with the user and provide valuable information for the ongoing evaluation including performance metrics, and other tweaks. The current implementation is far from complete as it only supports 2 modes, "evaluate" and "update".
+
+A more dynamic approach is to allow users to tweak the model and hyperparameters. Right now for the implementation, these values are hardcoded and they are not guaranteed to work for other objective functions.
+
 ## 6. Ethical considerations
 
 The model has no direct impact on any group of people or individuals. The risks relate mostly on wasted compute or poor optimization efficiency. 
