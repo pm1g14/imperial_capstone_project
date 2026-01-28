@@ -22,7 +22,7 @@ The queries were generated using an iterative Bayesian Optimisation Gaussian Pro
 **strategy:** 
 - Rounds (1-4) queries were generated using a surrogate model assuming constant noise and stationary functions.
 - Rounds (5-7) queries were generated using a surrogate model assuming variable noise.
-- Rounds (7-10) queries were generated using a surrogate model assuming variable noise and non-stationarity.
+- Rounds (7-13) queries were generated using a surrogate model assuming variable noise and non-stationarity. A Trust-region BO is also used to focus on promising areas.
 
 **timeframe:** The dataset was created over the course of the competition from September to December 2025. A new query point and evaluation pair for each function was generated each week.
 
