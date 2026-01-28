@@ -43,10 +43,12 @@ def evaluate(
     dataframe = InputUtils.convert_initial_data_to_dataframe(function_number, columns, input_dataset_path, output_dataset_path, submission_path)
 
     trust_region_flg = ModelEvaluator.should_switch_to_trust_region(trial_no, total_budget, dataframe)
-
-    evaluation_service = EvaluationServiceFactory.get_evaluation_service(trust_region_flg, dimensions, dataframe, total_budget, trial_no, function_number)
-    best_new_X = evaluation_service.run_suggest(function_number)
+    evaluation_service = EvaluationServiceFactory.get_evaluation_service(
+        trust_region_flg, dimensions, dataframe, total_budget, trial_no, function_number
+    )
+    best_new_X, model = evaluation_service.run_suggest(function_number)
     print(f"Next suggested evaluation point is: {best_new_X}")
+   
     sys.exit(0)
 
 
@@ -60,7 +62,7 @@ def update(
     turbo_state = turbo_service.load_turbo_state(function_number)
 
     if not turbo_state:
-        turbo_state = TurboState(dim=dimensions)
+        turbo_state = TurboState(dim=dimensions, length=0.8)
 
     turbo_service.update_turbo_state(
         turbo_state=turbo_state,

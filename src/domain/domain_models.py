@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 import numpy as np
 import pandas as pd
-from typing import List, Tuple
+from typing import List, Tuple, TYPE_CHECKING
 
-from models.heteroskedastic_model import HeteroskedasticModel
+if TYPE_CHECKING:
+    from models.heteroskedastic_model import HeteroskedasticModel
 
 
 class AcquisitionStepDetailsModel:
@@ -33,12 +34,16 @@ class ModelOutput:
     mse: float
     best_lambda: float
     best_eval_point: str
-    best_model: HeteroskedasticModel
+    best_model: "HeteroskedasticModel"
     best_residuals: np.ndarray
 
 @dataclass
+class WarpConfig:
+    lam_low: float
+    lam_high: float
+    
+@dataclass
 class ModelInputConfig:
-    dataset: pd.DataFrame
     bounds: List[Tuple[float, float]]
     nu_mean: float
     nu_noise: float
@@ -53,7 +58,8 @@ class ModelInputConfig:
     beta: float | None
     warp_inputs: bool
     warp_outputs: bool
-    lam: float | None
+    lam_config: WarpConfig | None
+
     
 @dataclass
 class TurboState:

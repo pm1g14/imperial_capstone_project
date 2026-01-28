@@ -135,3 +135,20 @@ class ModelEvaluator:
             )
             residuals.append(residual_for_trial)
         return np.array(residuals)
+
+    @staticmethod
+    def estimate_med_spacings(X: np.ndarray) -> List[float]:
+        med_spacings = []
+        for j in range(X.shape[1]):
+            xj = np.unique(np.sort(X[:, j]))
+            if xj.size > 1:
+                diffs = np.diff(xj)
+                diffs = diffs[diffs > 0]
+                if diffs.size > 0:
+                    med = float(np.median(diffs))
+                else:
+                    med = None
+            else:
+                med = None
+            med_spacings.append(med)
+        return med_spacings

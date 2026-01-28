@@ -1,4 +1,5 @@
 
+from typing import Tuple
 from botorch.acquisition import UpperConfidenceBound, qLogNoisyExpectedImprovement, qNegIntegratedPosteriorVariance
 import pandas as pd
 from abc import ABC, abstractmethod
@@ -12,7 +13,7 @@ from utils.plot_utils import PerformancePlotUtils
 class EvaluationServiceContract(ABC):
 
     @abstractmethod
-    def run_suggest(self, function_identifier: int):
+    def run_suggest(self, function_identifier: int) -> Tuple[str, HeteroskedasticContract]:
         pass
 
 

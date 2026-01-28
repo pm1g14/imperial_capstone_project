@@ -28,6 +28,7 @@ from botorch.acquisition.active_learning import qNegIntegratedPosteriorVariance
 from torch.nn import Parameter
 
 from models.heteroskedastic_contract import HeteroskedasticContract
+from domain.domain_models import WarpConfig
 from utils.csv_utils import CsvUtils
 from utils.matern_bounds_calculator_utils import MaternBoundsCalculatorUtils
 from utils.warp_utils import WarpUtils
@@ -49,7 +50,7 @@ class HeteroskedasticModel(HeteroskedasticContract):
         dtype=torch.float64, 
         warp_inputs:bool = False, 
         warp_outputs:bool = False,
-        lam: float | None = None
+        lam: WarpConfig | None = None
     ):
         self._dataset = dataset
         self._X_train, self._Y_train = self._get_tensors_from_dataframe()
@@ -58,7 +59,7 @@ class HeteroskedasticModel(HeteroskedasticContract):
         self._y_warp = None
 
         if warp_outputs:
-            self._y_warp = WarpedOutputTransformation(y=self._Y_train, lam_low=-1.5, lam_high=1.5)
+            self._y_warp = WarpedOutputTransformation(y=self._Y_train, lam_low=lam.lam_low, lam_high=lam.lam_high)
         
         self._model_mean = self._build_mean_model(nu_mean=nu_mean, warp_inputs=warp_inputs)
         self._model = self._fit_two_models(nu_noise = nu_noise, eps=1e-8, num_iters=2)

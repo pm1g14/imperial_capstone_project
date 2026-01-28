@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from domain.domain_models import ModelInputConfig
+from models.heteroskedastic_contract import HeteroskedasticContract
 
 class GlobalEvaluationService(EvaluationServiceContract):
 
@@ -18,7 +19,7 @@ class GlobalEvaluationService(EvaluationServiceContract):
         self._trial_no = trial_no
         self._model_input_config = config
 
-    def run_suggest(self, function_identifier: int) -> str:
+    def run_suggest(self, function_identifier: int) -> Tuple[str, HeteroskedasticContract]:
 
         new_point_model, _, _, model, _ = self.init_model_and_get_new_point(
             dataset=self._dataframe,
@@ -28,7 +29,7 @@ class GlobalEvaluationService(EvaluationServiceContract):
             display_plots=True
         )
      
-        return new_point_model
+        return new_point_model, model
      
 
 
@@ -49,7 +50,7 @@ class GlobalEvaluationService(EvaluationServiceContract):
                 n_restarts=model_config.n_restarts, 
                 warp_inputs=model_config.warp_inputs,
                 warp_outputs=model_config.warp_outputs, 
-                lam=model_config.lam, 
+                lam=model_config.lam_config, 
                 trial_no=self._trial_no, 
                 total_budget=self._total_budget
             )
