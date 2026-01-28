@@ -36,11 +36,14 @@ Below is a list of the hyperparameters for my model:
 
 ## How to Run
 Clone the git repo and run:
+
 `pipenv install`
+
 to install dependencies.
 
 There are 2 modes that can run, the "evaluate" mode that suggests the next evaluation point and the "update" mode that's applicable for Trust Region BO, to update the search area bounds.
 For the "evaluate" mode, run:
+
 `python capstone_imperial/src/app.py evaluate`
 
 Input parameters for this mode are:
@@ -53,6 +56,7 @@ Input parameters for this mode are:
 | input-dataset-path | The path to the input dataset. Must be in a .npy file format. |
 | output-dataset-path | The existing evaluations file, if any. Must be an .npy file. |
 | submission-path | The path to the trial evaluations file. |
+
 
 EX.
 `python capstone_imperial/src/app.py evaluate 1 2 13 --trial-no 11`
