@@ -62,6 +62,7 @@ EX.
 `python capstone_imperial/src/app.py evaluate 1 2 13 --trial-no 11`
 
 For the "update" mode, run:
+
 `python capstone_imperial/src/app.py update`
 
 Input parameters for this mode are:
@@ -70,6 +71,7 @@ Input parameters for this mode are:
 | y-new | The latest trial evaluation. |
 | function-number | A unique identifier for the function to update. Must match the identifier used in the evaluate mode. |
 | dimensions | The number of input parameters. |
+
 EX.
 `python capstone_imperial/src/app.py update -1.2481615507832458e-21 1 2`
 
